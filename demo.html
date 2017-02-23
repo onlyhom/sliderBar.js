@@ -24,7 +24,8 @@
         <div class="nav">
             <h1>sliderBar Demo</h1>
         </div>
-        <input type="text" id="trigger" placeholder="范围选择器">
+        <input type="text" id="trigger1" placeholder="范围选择">
+        <input type="text" id="trigger2" placeholder="范围选择-带单位">
     </div>
 </div>
 
@@ -34,16 +35,26 @@
 
 
     var priceRange = new SliderBar({
-        trigger: '#trigger',
-        title: '租金范围',
+        trigger: '#trigger1',
+        title: '范围选择',
         minValue: 0,
-        maxValue: 5000,
-        position:[0, 4000], //设置初始位置 
+        maxValue: 500,
         callback:function(data){
             console.log(data);
         }
     });
 
+    var priceRange2 = new SliderBar({
+        trigger: '#trigger2',
+        title: '租金选择',
+        minValue: 0,
+        maxValue: 5000,
+        unit:'元', //单位
+        position:[0, 4000], //设置初始位置  注意要在 minValue—maxValue的区间内
+        callback:function(data){
+            console.log(data);
+        }
+    });
 
 
 </script>

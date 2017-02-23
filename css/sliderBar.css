@@ -119,6 +119,8 @@
   top: -30px;
   padding: 2px 5px;
   border-radius: 3px;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 .sliderBar .content .panel .slider .startHandle .label {
   right: 0;

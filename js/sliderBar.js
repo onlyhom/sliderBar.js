@@ -1,14 +1,8 @@
 window.SliderBar = (function() {
-    function getID(string){
-    	return document.getElementById(string);
-    }
+
 	function getClass(dom,string) {
 		return dom.getElementsByClassName(string);
 	}
-	function getTag(dom,string) {
-		return dom.getElementsByTagName(string);
-	}
-
 	//构造器
 	function SliderBar(config) {
 		this.sliderBar;
@@ -32,11 +26,12 @@ window.SliderBar = (function() {
 	    this.minBoundary = parseInt((this.allWidth-this.realWidth)/2);
 	    this.maxBoundary = this.allWidth - this.minBoundary;
 
-	    config.callback ? this.callback = config.callback : this.callback = function(){};
-	    config.position ? this.initPosition = config.position : this.initPosition = null;
-	    config.title ? this.titleText = config.title : this.titleText = '';
-	    config.minValue ? this.minValue = config.minValue : this.minValue = 0;
-	    config.maxValue ? this.maxValue = config.maxValue : this.maxValue = 100;
+	    this.callback = config.callback ? config.callback : function(){};
+	    this.initPosition = config.position ? config.position : null;
+	    this.minValue = config.minValue ? config.minValue : 0;
+	    this.maxValue = config.maxValue ? config.maxValue : 100;
+	    this.titleText = config.title ? config.title : '';
+	    this.unit = config.unit? config.unit : '';
 
 	    this.init(config);
 	}
@@ -53,7 +48,7 @@ window.SliderBar = (function() {
 
 		    for(var i=0; i<_this.handles.length; i++){
 	        	_this.handles[i].style.left = _this.getPercent(i) +'%';
-	        	_this.labels[i].innerHTML = parseInt(_this.getOccupy(i) * (_this.maxValue - _this.minValue)) + _this.minValue;
+	        	_this.labels[i].innerHTML = parseInt(_this.getOccupy(i) * (_this.maxValue - _this.minValue)) + _this.minValue + _this.unit;
 		    }
 	    	_this.bar.style.width = _this.getPercent(1) - _this.getPercent(0) +'%';
 	    	_this.bar.style.left = _this.getPercent(0) +'%';
@@ -99,9 +94,6 @@ window.SliderBar = (function() {
 		    	for(var i=0; i<_this.labels.length; i++){
 		    		i==_this.labels.length-1 ? tempValue += _this.getValue(i) : tempValue += _this.getValue(i)+'-';
 		    	}
-		    	// for(var i=0; i<_this.labels.length; i++){
-		    	// 	i==_this.labels.length-1 ? tempValue += _this.getValue(i) : tempValue += _this.getValue(i)+'-';
-		    	// }
 		    	_this.trigger.value = tempValue;
 		    	_this.callback(_this.getValueJson());
 		    });
@@ -130,7 +122,7 @@ window.SliderBar = (function() {
 		                '<div class="fixWidth">'+
 		                    '<div class="cancel">取消</div>'+
 		                    '<div class="title"></div>'+
-		                    '<div class="ensure">选择</div>'+
+		                    '<div class="ensure">确定</div>'+
 		                '</div>'+
 		            '</div>'+
 		            '<div class="panel">'+
@@ -214,14 +206,14 @@ window.SliderBar = (function() {
 	        _this.handles[0].style.left = _this.getPercent(0) +'%';
 	    	_this.bar.style.width = _this.getPercent(1) - _this.getPercent(0) +'%';
 	    	_this.bar.style.left = _this.getPercent(0) +'%';
-	        _this.labels[0].innerHTML = +parseInt(_this.getOccupy(0) * (_this.maxValue - _this.minValue)) + _this.minValue;
+	        _this.labels[0].innerHTML = +parseInt(_this.getOccupy(0) * (_this.maxValue - _this.minValue)) + _this.minValue + _this.unit;
 		},
 
 		updateMaxPosition: function(){
 			var _this = this;
 	        _this.handles[1].style.left = _this.getPercent(1) +'%';
 	    	_this.bar.style.width = _this.getPercent(1) - _this.getPercent(0) +'%';
-	        _this.labels[1].innerHTML = parseInt(_this.getOccupy(1) * (_this.maxValue - _this.minValue)) + _this.minValue;
+	        _this.labels[1].innerHTML = parseInt(_this.getOccupy(1) * (_this.maxValue - _this.minValue)) + _this.minValue + _this.unit;
 		
 		},
 
